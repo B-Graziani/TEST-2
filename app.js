@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 
 require("./src/routes/pokemonRoutes/createPokemon")(app);
 require("./src/routes/pokemonRoutes/findAllPokemons")(app);
+require("./src/routes/pokemonRoutes/showPokemon")(app);
 require("./src/routes/userRoutes/createUser")(app);
 
 //FIN DE L APP
