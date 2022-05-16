@@ -9,7 +9,6 @@ const validTypes = [
   "Electrik",
   "Fée",
 ];
-
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
     "Pokemon",
@@ -22,9 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: {
-          msg: "le nom est deja pris !",
-        },
+        unique: { msg: "le nom est deja pris" },
         validate: {
           notEmpty: { msg: "Ne doit pas etre vide" },
           notNull: { msg: "propriété requise" },
@@ -48,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           isInt: { msg: "utilisez uniquement des nombres entier" },
-          notNull: { msg: "propriété requise " },
+          notNull: { msg: "propriete requise" },
           min: {
             args: [0],
             msg: "point de vie superieur ou egal à 0",
@@ -60,8 +57,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isUrl: { msg: "use an valid url" },
-          notNull: { msg: "propriete requise" },
+          isUrl: { msg: "use un validate URL" },
+          notNull: { msg: "proprété requise" },
         },
       },
       types: {
@@ -95,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: true,
       createdAt: "created",
-      updated: false,
+      updatedAt: false,
     }
   );
 };
