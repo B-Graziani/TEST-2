@@ -1,4 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
+const PokemonModel = require("../models/pokemon");
+const UserModel = require("../models/user");
 
 const sequelize = new Sequelize("test_alone", "root", "root", {
   port: 8889,
@@ -17,3 +19,18 @@ sequelize
   .catch((error) => {
     console.log(error);
   });
+
+const Pokemon = PokemonModel(sequelize, DataTypes);
+const User = UserModel(sequelize, DataTypes);
+
+sequelize
+  .sync({ force: true })
+  .then(() => console.log("creation des tables , ok !"))
+  .catch((error) => {
+    console.log(error);
+  });
+
+module.exports = {
+  Pokemon,
+  User,
+};
