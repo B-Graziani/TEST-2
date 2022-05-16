@@ -16,9 +16,9 @@ app.get("/", (req, res) => {
   res.json("TEST HOME PAGE DEFAULT");
 });
 
-// require("./src/routes/pokemonRoutes/createPokemon")(app);
-// require("./src/routes/userRoutes/createUser")(app);
-//
+require("./src/routes/pokemonRoutes/createPokemon")(app);
+require("./src/routes/userRoutes/createUser")(app);
+
 //FIN DE L APP
 app.listen(port, () => {
   console.log(`app started with the port : ${port}`);
