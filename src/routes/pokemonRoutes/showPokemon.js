@@ -1,14 +1,19 @@
 const { Pokemon } = require("../../db/sequelize");
 
 module.exports = (app) => {
-  app.get("/api/pokemon/:id", (req, res) => {
+  app.get("/api/pokemons/:id", (req, res) => {
     Pokemon.findByPk(req.params.id)
       .then((pokemon) => {
-        const mess = `le pokemon ${pokemon.name} à bien ete recuperer !`;
-        res.json({ mess, data: pokemon });
+        if (pokemon === null) {
+          const message = "le pokemon demandé n existe pas , try another id";
+          return res.status(404).json({ message });
+        }
+        const message = "Un pokémon a bien été trouvé.";
+        res.json({ message, data: pokemon });
       })
-      .catch(() => {
-        console.log("perdu");
+      .catch((error) => {
+        const message = "Liste des pokémons non recupere , try again";
+        res.status(500).json({ message, data, error });
       });
   });
 };
