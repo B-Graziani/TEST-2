@@ -1,13 +1,14 @@
-const { Pokemon } = require("../../db/sequelize");
-
-module.exports = (app) => {
-  app.post("/api/pokemons", (req, res) => {
-    Pokemon.create(req.body).then((pokemon) => {
-      const message = `le pokemon ${pokemon.name} a bien ete creeer`;
-      res.json({ message, data: pokemon });
-    });
-  });
-};
+const validTypes = [
+  "Plante",
+  "Poison",
+  "Feu",
+  "Eau",
+  "Insecte",
+  "Vol",
+  "Normal",
+  "Electrik",
+  "Fée",
+];
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
     "Pokemon",
@@ -20,22 +21,67 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: { msg: "le nom est deja pris" },
+        validate: {
+          notEmpty: { msg: "Ne doit pas etre vide" },
+          notNull: { msg: "propriété requise" },
+        },
       },
       hp: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          isInt: { msg: "utilisez uniquement des nombres entier" },
+          notNull: { msg: "propriété requise " },
+          min: {
+            args: [0],
+            msg: "point de vie superieur ou egal à 0",
+          },
+          max: { args: [999], msg: "point de vie inferieur ou egal a 999" },
+        },
       },
       cp: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          isInt: { msg: "utilisez uniquement des nombres entier" },
+          notNull: { msg: "propriete requise" },
+          min: {
+            args: [0],
+            msg: "point de vie superieur ou egal à 0",
+          },
+          max: { args: [99], msg: "point de vie inferieur ou egal a 99" },
+        },
       },
       picture: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          isUrl: { msg: "use un validate URL" },
+          notNull: { msg: "proprété requise" },
+        },
       },
       types: {
         type: DataTypes.STRING,
         allowNull: false,
+
+        validate: {
+          isTypesValid(value) {
+            if (!value) {
+              throw new Error("un pokemon doit avoir un type");
+            }
+            if (value.split(",").length > 3) {
+              throw new Error("un pokemon ne peut avoir plus de trois type");
+            }
+            value.split(",").forEach((type) => {
+              if (!validTypes.includes(type)) {
+                throw new Error(
+                  `le type d un pokemon doit aoppartenir a la liste suivante : ${validTypes}`
+                );
+              }
+            });
+          },
+        },
       },
     },
     {
