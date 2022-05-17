@@ -19,13 +19,14 @@ module.exports = (app) => {
       })
       .catch((error) => {
         if (error instanceof ValidationError) {
-          return res.statut(400).json({ message: error.message, data: error });
-        }
-        if (error instanceof UniqueConstraintError) {
-          return res.statut(400).json({ message: error.message, data: error });
+          // console.log(res);
+          return res.status(400).json({ message: error.message, data: error });
+        } else if (error instanceof UniqueConstraintError) {
+          // console.log(res);
+          return res.status(400).json({ message: error.message, data: error });
         }
         const message = "le pokemon n a pas pu etre modifié , try again";
-        res.statut(500).json({ message, data, error });
+        res.status(500).json({ message, data, error });
       });
   });
 };
