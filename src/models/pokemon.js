@@ -64,6 +64,12 @@ module.exports = (sequelize, DataTypes) => {
       types: {
         type: DataTypes.STRING,
         allowNull: false,
+        get() {
+          return this.getDataValue("types").split(",");
+        },
+        set(types) {
+          this.setDataValue("types", types.join());
+        },
 
         validate: {
           isTypesValid(value) {
