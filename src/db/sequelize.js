@@ -41,14 +41,18 @@ sequelize
 const Pokemon = PokemonModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
 
-sequelize
-  .sync({ force: true })
-  .then(() => console.log("creation des tables , ok !"))
-  .catch((error) => {
-    console.log(error);
+const initDb = () => {
+  return sequelize.sync({ force: true }).then(() => {
+    User.create({
+      username: "pikachu",
+      password: "motdepasse",
+    }).then((user) => user.toJSON());
+    console.log("Base de donnée initialisée");
   });
+};
 
 module.exports = {
+  initDb,
   Pokemon,
   User,
 };

@@ -2,7 +2,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 //JE SAIS QUE LA CONNEXION FONCTIONNE
-// const sequelize = require("./src/db/sequelize");
+const sequelize = require("./src/db/sequelize");
+
 //
 //DEBUT DE L APP
 const app = express();
@@ -10,6 +11,11 @@ const port = process.env.PORT || 3000;
 //
 //MIDDLEWARE
 app.use(bodyParser.json());
+//
+
+//BLOK
+sequelize.initDb();
+
 //
 //HOME PAR DEFAULT (route)
 app.get("/", (req, res) => {
