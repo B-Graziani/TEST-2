@@ -27,7 +27,7 @@ require("./src/routes/pokemonRoutes/findAllPokemons")(app);
 require("./src/routes/pokemonRoutes/showPokemon")(app);
 require("./src/routes/pokemonRoutes/updatePokemon")(app);
 require("./src/routes/pokemonRoutes/deletePokemon")(app);
-require("./src/routes/userRoutes/createUser")(app);
+// require("./src/routes/userRoutes/createUser")(app);
 // require("./src/routes/login")(app);
 
 //FIN DE L APP
