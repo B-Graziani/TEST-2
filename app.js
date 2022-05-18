@@ -1,6 +1,7 @@
 //CE DONT J AI BESOINS
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 //JE SAIS QUE LA CONNEXION FONCTIONNE
 const sequelize = require("./src/db/sequelize");
 
@@ -10,7 +11,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 //
 //MIDDLEWARE
-app.use(bodyParser.json());
+app.use(bodyParser.json()).use(cors());
 //
 
 //BLOK
